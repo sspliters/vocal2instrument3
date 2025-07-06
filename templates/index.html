@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vocal to Instrument</title>
+</head>
+<body>
+    <h2>Upload your song</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="audio" accept="audio/*" required>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result" style="margin-top:20px;"></div>
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const res = await fetch('/upload', { method: 'POST', body: formData });
+            const data = await res.json();
+            document.getElementById('result').innerHTML = `
+                <p><a href="${data.midi_url}" download>MIDI Download</a></p>
+                <p><a href="${data.wav_url}" download>WAV Download</a></p>
+                <audio controls src="${data.wav_url}"></audio>
+            `;
+        };
+    </script>
+</body>
+</html>
