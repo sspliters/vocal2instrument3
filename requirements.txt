@@ -1,0 +1,8 @@
+
+Flask
+librosa
+numpy
+pretty_midi
+soundfile
+pyfluidsynth
+demucs
